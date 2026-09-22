@@ -1,0 +1,56 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment variables
+.env
+.env.test
+.env.production
+.env.local
+backend/.env
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+backend/dist/
+frontend/dist/
+out/
+
+# Vite / React / Frontend cache
+.vite/
+.eslintcache
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Optional npm cache directory
+.npm/
+
+# Optional REPL history
+.node_repl_history
+
+# Debugging crashes
+*.heapsnapshot
+*.hprof

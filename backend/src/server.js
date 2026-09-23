@@ -56,6 +56,15 @@ app.get('/api/audit-logs', async (req, res) => {
 
 app.use('/api/enterprise', securityGateway, enterpriseRoutes);
 
+// Serve Frontend in Production
+const path = require('path');
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 // Database Connection
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {

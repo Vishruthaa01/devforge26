@@ -56,13 +56,9 @@ app.get('/api/audit-logs', async (req, res) => {
 
 app.use('/api/enterprise', securityGateway, enterpriseRoutes);
 
-// Serve Frontend in Production
-const path = require('path');
-const frontendPath = path.join(__dirname, '../../frontend/dist');
-app.use(express.static(frontendPath));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+// Root route for the backend API
+app.get('/', (req, res) => {
+  res.json({ status: 'Security Gateway API is running in the cloud!' });
 });
 
 // Database Connection

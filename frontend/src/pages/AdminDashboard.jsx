@@ -15,8 +15,8 @@ export default function AdminDashboard() {
     const fetchData = async () => {
       try {
         const [logsRes, pendingRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/audit-logs'),
-          axios.get('http://localhost:5000/api/admin/pending')
+          axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/audit-logs`),
+          axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/pending`)
         ]);
         setLogs(logsRes.data.data);
         setPending(pendingRes.data.data);
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
     fetchData();
 
     // Socket.io Integration
-    const socket = io('http://localhost:5000');
+    const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000');
 
     socket.on('request.allowed', (newLog) => {
       setLogs(prev => [newLog, ...prev]);
@@ -59,7 +59,7 @@ export default function AdminDashboard() {
 
   const handleDecision = async (id, decision) => {
     try {
-      await axios.post(`http://localhost:5000/api/admin/${decision}/${id}`);
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/${decision}/${id}`);
       // Remove from UI instantly for snappy UX
       setPending(prev => prev.filter(req => req._id !== id));
     } catch (err) {

@@ -20,7 +20,7 @@ export default function AgentManager() {
 
   const fetchRoles = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/roles');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/roles`);
       setRoles(res.data.data.filter(r => !['Admin', 'HR', 'IT_Support', 'Procurement'].includes(r.name))); // filter for relevant bots
       setLoading(false);
     } catch (err) {
@@ -43,7 +43,7 @@ export default function AgentManager() {
 
   const saveRole = async (role) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/roles/${role._id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/roles/${role._id}`, {
         allowedActions: role.allowedActions
       });
       setMessage({ type: 'success', text: `Permissions saved for ${role.name}` });

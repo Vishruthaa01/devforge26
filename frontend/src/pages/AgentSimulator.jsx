@@ -24,8 +24,8 @@ export default function AgentSimulator() {
     logToTerminal(`[NLP]: Parsing intent...`, false, false, 'text-gray-400');
 
     try {
-      // 1. NLP Parsing Phase
-      const nlpRes = await axios.post('http://localhost:5000/api/nlp/parse-intent', { text: userInput });
+      // 1. NLP parsing
+      const nlpRes = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/nlp/parse-intent`, { text: userInput });
       const intent = nlpRes.data.data;
 
       if (intent.action === 'UNKNOWN') {
@@ -40,7 +40,7 @@ export default function AgentSimulator() {
       // 2. Gateway Request Phase
       const config = {
         method: intent.method,
-        url: `http://localhost:5000${intent.path}`,
+        url: `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${intent.path}`,
         headers: { 'x-agent-id': activeBot }
       };
       
